@@ -13,6 +13,7 @@ import { UserModule } from './user/user.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
+      envFilePath: '.env.test.local',
       load: [envConfig],
       cache: true,
       isGlobal: true,
