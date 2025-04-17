@@ -65,6 +65,8 @@ describe('Login (e2e)', () => {
       .expect(201);
 
     console.log('✅ Login Token:', res.body.token);
+    console.log('🧪 Wallet address:', address);
+
     expect(res.body).toHaveProperty('token');
   });
 });

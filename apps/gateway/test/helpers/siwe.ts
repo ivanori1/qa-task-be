@@ -1,28 +1,37 @@
 import { Wallet } from 'ethers';
 import { SiweMessage } from 'siwe';
-import axios from 'axios';
+import request from 'supertest';
+import { INestApplication } from '@nestjs/common';
 
-export async function generateSiweLogin() {
-  const privateKey = process.env.TEST_PRIVATE_KEY;
-  const domain = process.env.TEST_DOMAIN || 'localhost'; // ← no port!
+interface GenerateSiweLoginOptions {
+  app: INestApplication;
+  wallet?: Wallet; // optional override (for login tests)
+}
+
+/**
+ * Generates a valid SIWE message, signature, and address.
+ * Can use a custom wallet or generate a fresh one for signup flows.
+ */
+export async function generateSiweLogin({
+  app,
+  wallet,
+}: GenerateSiweLoginOptions) {
+  const domain = process.env.TEST_DOMAIN || 'localhost';
   const origin = process.env.TEST_ORIGIN || 'http://localhost:3000';
-  const gateway = process.env.TEST_GATEWAY_URL || 'http://localhost:8080';
 
-  if (!privateKey || !domain || !origin) {
-    throw new Error('Missing TEST_PRIVATE_KEY, TEST_DOMAIN, or TEST_ORIGIN');
-  }
+  const resolvedWallet = wallet ?? Wallet.createRandom(); // 🧠 fallback to random for signup
+  const address = resolvedWallet.address;
 
-  const wallet = new Wallet(privateKey);
+  // Get nonce from the backend (preserving session)
+  const nonceRes = await request(app.getHttpServer())
+    .get(`/siwe/nonce/${address}`)
+    .expect(200);
 
-  // ✅ Fetch nonce from backend
-  const { data } = await axios.get(
-    `${gateway}/v1/siwe/nonce/${wallet.address}`,
-  );
-  const nonce = data;
+  const nonce = nonceRes.text;
 
-  const messageObj = new SiweMessage({
+  const siweMessage = new SiweMessage({
     domain,
-    address: wallet.address,
+    address,
     statement: 'Sign in with Ethereum to the app.',
     uri: origin,
     version: '1',
@@ -31,11 +40,12 @@ export async function generateSiweLogin() {
     issuedAt: new Date().toISOString(),
   });
 
-  const message = messageObj.prepareMessage();
-  const signature = await wallet.signMessage(message);
+  const message = siweMessage.prepareMessage();
+  const signature = await resolvedWallet.signMessage(message);
 
   return {
-    address: wallet.address,
+    wallet: resolvedWallet,
+    address,
     message,
     signature,
   };

@@ -3,7 +3,7 @@
 ## Submission Requirements
 
 - [Unit Tests](#-unit-testing)
-- Integration Tests
+- [Integration Tests](#-integration-testing)
 - E2E Testing
 - Testing Performance benchmarks
 - Clearly document strategies via effective testing and in the Submission Documentation section of the ReadMe
@@ -110,4 +110,38 @@ Tests include:
 
 #### Test Files
 
-Unit tests:
+- `apps/api/src/user/__tests__/user.service.spec.ts`
+- `apps/api/src/user/__tests__/user.repository.spec.ts`
+
+
+
+## 🔗 Integration Testing
+
+Integration tests are implemented using `supertest` against a live `NestJS` app instance to verify that services, modules, and real infrastructure (e.g. database, SIWE auth flow) work together correctly.
+
+### 📁 Structure
+
+All integration tests are located in:
+
+`apps/gateway/test/`
+
+### ✅ Tested Scenarios
+
+**`signup.e2e-spec.ts`**
+- Dynamically generates a new Ethereum wallet
+- Retrieves a valid nonce via `/v1/siwe/nonce/:address`
+- Signs a valid [SIWE](https://siwe.io) message using `ethers`
+- Sends the signed message and user details to `/v1/user/signup`
+- Asserts that a valid JWT token is returned
+
+**`login.e2e-spec.ts`**
+- Uses a fixed test wallet (loaded from `.env.test.local`)
+- Retrieves a fresh nonce from the backend
+- Signs the login message
+- Sends the signed message to `/v1/user/login`
+- Verifies that the backend returns a valid JWT token
+
+### ⚙️ Environment Configuration
+
+Create a `.env.test.local` file in `apps/gateway/`:
+
