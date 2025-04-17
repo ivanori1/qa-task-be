@@ -82,7 +82,7 @@ This project is a full-stack TypeScript monorepo using **Turborepo**. It include
 
 ---
 
-###  Unit Testing Work
+### Unit Testing Work
 
 Unit tests are implemented with **Jest + ts-jest** and cover both the `gateway` and `api` applications.
 
