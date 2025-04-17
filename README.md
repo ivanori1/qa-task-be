@@ -2,7 +2,7 @@
 
 ## Submission Requirements
 
-- Unit Tests
+- [Unit Tests](#-unit-testing)
 - Integration Tests
 - E2E Testing
 - Testing Performance benchmarks
@@ -69,3 +69,45 @@ $ yarn format
 ```
 
 ## Submission Documentation...
+
+## 🧪 Unit Testing
+
+This project is a full-stack TypeScript monorepo using **Turborepo**. It includes:
+
+- `apps/api` – NestJS microservice backend (e.g. user creation, DB)
+- `apps/gateway` – NestJS API gateway (authentication, SIWE handling)
+- `apps/client` – Next.js frontend
+- `packages/lib-server` – Shared DTOs and types
+- SQLite database (for local development)
+
+---
+
+###  Unit Testing Work
+
+Unit tests are implemented with **Jest + ts-jest** and cover both the `gateway` and `api` applications.
+
+---
+
+### `apps/gateway` – Unit Tests
+
+Focus: Controller logic related to login/signup via SIWE and JWT issuance.
+
+#### Covered Module
+
+**`apps/gateway/src/user/user.controller.ts`**
+
+Tests include:
+
+- `signup()` returns a JWT token on successful registration
+- `login()` returns a JWT token on valid SIWE signature
+- `login()` throws `UnauthorizedException` on invalid signature
+
+#### Mocked Dependencies
+
+- `SiweService` – mocked `.verifyMessage()`
+- `UserClientAPI` – mocked `.signUp()` and `.getUser()`
+- `JwtService` – mocked `.buildAuthRes()`
+
+#### Test Files
+
+Unit tests:
