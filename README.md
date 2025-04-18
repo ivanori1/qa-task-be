@@ -145,3 +145,13 @@ All integration tests are located in:
 
 Create a `.env.test.local` file in `apps/gateway/`:
 
+```bash
+TEST_DOMAIN=localhost
+TEST_ORIGIN=http://localhost:3000 
+TEST_PRIVATE_KEY=0xabc123... # used only in login test
+```
+Run all integration tests:
+
+```bash
+yarn test:e2e
+```

@@ -57,3 +57,6 @@ gha-creds-*.json
 .local/data
 .local/initdb/inventory/csv/*
 .local/initdb/inventory/inventory-inserts.sql
+
+# Ignore test results
+.last-run.json
