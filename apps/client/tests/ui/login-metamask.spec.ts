@@ -24,40 +24,42 @@ test('🔐 Login to XBorg via MetaMask', async () => {
 
   console.log('✅ MetaMask wallet set up');
 
+  // Approve connection from MetaMask
+  //await metamask.approve();
 
-    // Approve connection from MetaMask
-    //await metamask.approve();
+  // Sign the login message
+  //await metamask.sign();
 
-    // Sign the login message
-    //await metamask.sign();
-
-  // WORKAROUND 
+  // WORKAROUND
   // Open dapp in new tab (keeps MetaMask in focus)
   const dappPage = await browserContext.newPage();
   await dappPage.goto('http://localhost:3000/');
   await dappPage.getByRole('button', { name: 'Login' }).click();
 
-
   // MetaMask will show connect modal
-  await mmPage.bringToFront()
-      // Click "Login with Metamask"
-      await expect(dappPage.getByText('Login with Metamask')).toBeVisible();
-      await dappPage.getByText('Login with Metamask').click();
+  await mmPage.bringToFront();
+  // Click "Login with Metamask"
+  await expect(dappPage.getByText('Login with Metamask')).toBeVisible();
+  await dappPage.getByText('Login with Metamask').click();
 
-  await mmPage.reload()
-  await mmPage.waitForSelector('[data-testid="confirm-btn"]', { timeout: 10000 });
+  await mmPage.reload();
+  await mmPage.waitForSelector('[data-testid="confirm-btn"]', {
+    timeout: 10000,
+  });
   await mmPage.click('[data-testid="confirm-btn"]');
 
   // Wait and expect Sign-in request UI
-  await mmPage.waitForSelector('h2:text("Sign-in request")', { timeout: 10000 });
+  await mmPage.waitForSelector('h2:text("Sign-in request")', {
+    timeout: 10000,
+  });
   await mmPage.click('[data-testid="confirm-footer-button"]');
 
   // Switch focus back to dapp and validate Profile UI
   await dappPage.bringToFront();
 
-  await expect(
-    dappPage.getByRole('button', { name: 'Profile' })
-  ).toBeVisible({ timeout: 10000 });
+  await expect(dappPage.getByRole('button', { name: 'Profile' })).toBeVisible({
+    timeout: 10000,
+  });
 
   await expect(
     dappPage.getByRole('heading', { name: 'Profile' })

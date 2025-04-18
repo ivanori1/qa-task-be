@@ -113,8 +113,6 @@ Tests include:
 - `apps/api/src/user/__tests__/user.service.spec.ts`
 - `apps/api/src/user/__tests__/user.repository.spec.ts`
 
-
-
 ## 🔗 Integration Testing
 
 Integration tests are implemented using `supertest` against a live `NestJS` app instance to verify that services, modules, and real infrastructure (e.g. database, SIWE auth flow) work together correctly.
@@ -128,6 +126,7 @@ All integration tests are located in:
 ### ✅ Tested Scenarios
 
 **`signup.e2e-spec.ts`**
+
 - Dynamically generates a new Ethereum wallet
 - Retrieves a valid nonce via `/v1/siwe/nonce/:address`
 - Signs a valid [SIWE](https://siwe.io) message using `ethers`
@@ -135,6 +134,7 @@ All integration tests are located in:
 - Asserts that a valid JWT token is returned
 
 **`login.e2e-spec.ts`**
+
 - Uses a fixed test wallet (loaded from `.env.test.local`)
 - Retrieves a fresh nonce from the backend
 - Signs the login message
@@ -147,9 +147,10 @@ Create a `.env.test.local` file in `apps/gateway/`:
 
 ```bash
 TEST_DOMAIN=localhost
-TEST_ORIGIN=http://localhost:3000 
+TEST_ORIGIN=http://localhost:3000
 TEST_PRIVATE_KEY=0xabc123... # used only in login test
 ```
+
 Run all integration tests:
 
 ```bash
