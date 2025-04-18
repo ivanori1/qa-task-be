@@ -7,9 +7,11 @@
     "test": "turbo run test",
     "format": "prettier --write \"**/*.{ts,tsx,md,yml}\"",
     "prepare": "husky install",
-    "start:local:infra": "docker compose --file .local/docker-compose.yml up --detach"
+    "start:local:infra": "docker compose --file .local/docker-compose.yml up --detach",
+    "test:ui": "playwright test apps/client/tests/ui"
   },
   "devDependencies": {
+    "@playwright/test": "^1.52.0",
     "@turbo/gen": "1.9.7",
     "eslint": "7.32.0",
     "husky": "8.0.3",
@@ -23,6 +25,7 @@
     "packages/*"
   ],
   "dependencies": {
+    "@tenkeylabs/dappwright": "^2.10.2",
     "ethers": "^6.13.5",
     "siwe": "^3.0.0"
   }
