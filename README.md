@@ -164,6 +164,7 @@ E2E tests are implemented using [`playwright`](https://playwright.dev/) together
 ### 📁 Structure
 
 All E2E tests are located in:
+
 ```bash
 apps/client/tests/ui/
 ```
@@ -197,6 +198,7 @@ METAMASK_PASSWORD="YourMetaMaskPassword123"
 ```
 
 ### 🚀 Running E2E Tests
+
 Run tests using Playwright CLI:
 
 ```bash
