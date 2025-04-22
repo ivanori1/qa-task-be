@@ -212,15 +212,18 @@ Page load performance is tested using Playwright, with metrics like `DOMContentL
 ### 📁 Structure
 
 Performance test is located at:
+
 ```bash
 apps/client/tests/ui/home-performance.spec.ts
 ```
+
 Results are written to:
 
 ```bash
 apps/playwright-report/performance.json
  apps/playwright-report/index.html
 ```
+
 ### ✅ What It Measures
 
 - `DOMContentLoaded` time for:
@@ -229,13 +232,14 @@ apps/playwright-report/performance.json
   - Signup page (`/signup`)
 
 Each entry includes:
+
 - Page label
 - Load time (ms)
 - Timestamp
 
 ### 🖥️ Running Performance Test
 
-After playwright tests are executed check 
+After playwright tests are executed check
 
 ```bash
  apps/playwright-report/index.html
