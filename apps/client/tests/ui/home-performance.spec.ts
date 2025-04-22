@@ -12,7 +12,9 @@ test.describe('Page Load Performance', () => {
     }
   });
 
-  test('Measure load times for Home, Login, and Signup pages', async ({ page }) => {
+  test('Measure load times for Home, Login, and Signup pages', async ({
+    page,
+  }) => {
     const metrics: any[] = [];
 
     // Measure home page
@@ -25,7 +27,7 @@ test.describe('Page Load Performance', () => {
       loadTimeMs: Math.round(homeEnd - homeStart),
       measuredAt: new Date().toISOString(),
     });
-    console.log(metrics)
+    console.log(metrics);
 
     // Measure Login page
     const loginStart = performance.now();
@@ -37,7 +39,7 @@ test.describe('Page Load Performance', () => {
       loadTimeMs: Math.round(loginEnd - loginStart),
       measuredAt: new Date().toISOString(),
     });
-    console.log(metrics)
+    console.log(metrics);
 
     // Navigate back to home
     await page.goto('http://localhost:3000/');
@@ -52,7 +54,7 @@ test.describe('Page Load Performance', () => {
       loadTimeMs: Math.round(signupEnd - signupStart),
       measuredAt: new Date().toISOString(),
     });
-    console.log(metrics)
+    console.log(metrics);
 
     // Write results
     fs.writeFileSync(outputFile, JSON.stringify(metrics, null, 2));
