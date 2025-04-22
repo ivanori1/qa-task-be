@@ -60,3 +60,6 @@ gha-creds-*.json
 
 # Ignore test results
 .last-run.json
+
+# Ignore performance reports
+apps/playwright-report/performance.json

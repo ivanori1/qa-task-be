@@ -1,0 +1,17 @@
+[
+  {
+    "label": "Home page",
+    "loadTimeMs": 297,
+    "measuredAt": "2025-04-22T14:43:23.674Z"
+  },
+  {
+    "label": "Login page",
+    "loadTimeMs": 1146,
+    "measuredAt": "2025-04-22T14:43:24.821Z"
+  },
+  {
+    "label": "Signup page",
+    "loadTimeMs": 1112,
+    "measuredAt": "2025-04-22T14:43:26.217Z"
+  }
+]

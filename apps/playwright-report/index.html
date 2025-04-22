@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>📊 Performance Report</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        padding: 2rem;
+        background: #f9f9f9;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        background: white;
+      }
+      th, td {
+        padding: 0.75rem 1rem;
+        border: 1px solid #ccc;
+        text-align: left;
+      }
+      th {
+        background: #f0f0f0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>📊 Performance Report</h1>
+    <table id="report">
+      <thead>
+        <tr>
+          <th>Page</th>
+          <th>DOM Content Loaded (ms)</th>
+          <th>Measured At</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <script>
+      fetch('./performance.json')
+        .then(res => res.json())
+        .then(data => {
+          const tbody = document.querySelector('#report tbody');
+
+          data.forEach(entry => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+              <td>${entry.label}</td>
+              <td>${entry.loadTimeMs ?? '-'}</td>
+              <td>${new Date(entry.measuredAt).toLocaleString()}</td>
+            `;
+            tbody.appendChild(row);
+          });
+        });
+    </script>
+  </body>
+</html>
