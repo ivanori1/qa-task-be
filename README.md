@@ -5,7 +5,7 @@
 - [Unit Tests](#-unit-testing)
 - [Integration Tests](#-integration-testing)
 - [E2E Testing](#-e2e-testing-playwright--metamask)
-- Testing Performance benchmarks
+- [Testing Performance benchmarks](#-performance-testing)
 - Clearly document strategies via effective testing and in the Submission Documentation section of the ReadMe
 
 Implementation should be submitted via a public GitHub repository, or a private repository with collaborator access granted to the provided emails.
@@ -203,4 +203,40 @@ Run tests using Playwright CLI:
 
 ```bash
 npx playwright test
+```
+
+## 🚀 Performance Testing
+
+Page load performance is tested using Playwright, with metrics like `DOMContentLoaded` time captured for key pages.
+
+### 📁 Structure
+
+Performance test is located at:
+```bash
+apps/client/tests/ui/home-performance.spec.ts
+```
+Results are written to:
+
+```bash
+apps/playwright-report/performance.json
+ apps/playwright-report/index.html
+```
+### ✅ What It Measures
+
+- `DOMContentLoaded` time for:
+  - Home page (`/`)
+  - Login page (`/login`)
+  - Signup page (`/signup`)
+
+Each entry includes:
+- Page label
+- Load time (ms)
+- Timestamp
+
+### 🖥️ Running Performance Test
+
+After playwright tests are executed check 
+
+```bash
+ apps/playwright-report/index.html
 ```
