@@ -2,9 +2,9 @@ import { test, expect } from '@playwright/test';
 import { launch, MetaMaskWallet } from '@tenkeylabs/dappwright';
 import dotenv from 'dotenv';
 
-dotenv.config({ path: '.env.local' });
+dotenv.config({ path: '.env.test.local' });
 
-test('🔐 Login to XBorg via MetaMask', async () => {
+test('Login to XBorg via MetaMask', async () => {
   const { wallet, browserContext } = await launch('chromium', {
     wallet: 'metamask',
     version: '12.16.0',
