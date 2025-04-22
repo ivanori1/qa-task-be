@@ -4,7 +4,7 @@
 
 - [Unit Tests](#-unit-testing)
 - [Integration Tests](#-integration-testing)
-- E2E Testing
+- [E2E Testing](#-e2e-testing-playwright--metamask)
 - Testing Performance benchmarks
 - Clearly document strategies via effective testing and in the Submission Documentation section of the ReadMe
 
@@ -155,4 +155,50 @@ Run all integration tests:
 
 ```bash
 yarn test:e2e
+```
+
+## 🧪 E2E Testing (Playwright + MetaMask)
+
+E2E tests are implemented using [`playwright`](https://playwright.dev/) together with [`dappwright`](https://github.com/TenKeyLabs/dappwright), enabling full browser automation of MetaMask flows in a real Chromium instance.
+
+### 📁 Structure
+
+All E2E tests are located in:
+```bash
+apps/client/tests/ui/
+```
+
+### ✅ Tested Scenarios
+
+**`login-metamask.spec.ts`**
+
+- Launches MetaMask in Chromium using Dappwright
+- Imports a known test wallet from `.env.local.test`
+- Opens the dapp and clicks “Login with MetaMask”
+- Approves the connection and signs the login message
+- Verifies successful login by checking for the `Profile` page
+
+**`signup-metamask.spec.ts`**
+
+- Dynamically generates a new Ethereum wallet
+- Launches MetaMask and imports the new wallet
+- Opens the dapp and fills out the signup form
+- Connects MetaMask and signs the signup message
+- Verifies that the user is redirected to the profile page
+- Asserts that profile details match input data
+
+### ⚙️ Environment Configuration
+
+Create a `.env.local.test` file in the project **root**:
+
+```bash
+METAMASK_SEED="job question hip human ... leisure"
+METAMASK_PASSWORD="YourMetaMaskPassword123"
+```
+
+### 🚀 Running E2E Tests
+Run tests using Playwright CLI:
+
+```bash
+npx playwright test
 ```
